@@ -1,13 +1,14 @@
 {
-  "name": "playtime",
-  "version": "0.6.0",
-  "description": "A Playlist application for the HDip in Computing, WIT",
+  "name": "Geo Tag",
+  "version": "0.1.23051",
+  "description": "Assignment 1 full Stack Development HDip in Computing, WIT",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
-    "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**/*.js -exit"
+    "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**/*.js -exit",
+    "dev" : "npx nodemon src/server.js"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",

@@ -1,4 +1,7 @@
+import Mongoose  from "mongoose";
 import { User } from "./user.js";
+
+
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -8,8 +11,10 @@ export const userMongoStore = {
 
   async getUserById(id) {
     if (id) {
-      const user = await User.findOne({ _id: id }).lean();
-      return user;
+      if (Mongoose.Types.ObjectId.isValid(id)){
+        const user = await User.findOne({ _id: id }).lean();
+        return user;
+      }
     }
     return null;
   },

@@ -1,14 +1,14 @@
 import { EventEmitter } from "events";
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testCategories, Kiln } from "../fixtures.js";
+import { testDBType,testCategories, Kiln } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 EventEmitter.setMaxListeners(25);
 
 suite("Category Model tests", () => {
   setup(async () => {
-    db.init("mem");
+    db.init(testDBType);
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -36,7 +36,7 @@ suite("Category Model tests", () => {
     assertSubset(Kiln, returnedCategory);
   });
 
-  test("delete One category - success", async () => {
+  test("Delete One category - success", async () => {
     const id = testCategories[0]._id;
     await db.categoryStore.deleteCategoryById(id);
     const returnedCategories = await db.categoryStore.getAllCategories();
@@ -45,7 +45,7 @@ suite("Category Model tests", () => {
     assert.isNull(deletedCategory);
   });
 
-  test("get a category - bad params", async () => {
+  test("Get a category - bad params", async () => {
     assert.isNull(await db.categoryStore.getCategoryById(""));
     assert.isNull(await db.categoryStore.getCategoryById());
   });
@@ -56,8 +56,8 @@ suite("Category Model tests", () => {
     assert.equal(testCategories.length, allCategories.length);
   });
 
-  test("Get user Category - not null ", async () => {
-    const categories = await db.categoryStore.getCategories("bad-id");
-    assert.isNotNull(categories);
+  test("Get User Category - with bad id ", async () => {
+    const categories = await db.categoryStore.getUserCategories("bad-id");
+    assert.isNull(categories);
   });
 });

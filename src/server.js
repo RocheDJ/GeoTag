@@ -59,7 +59,7 @@ async function init() {
   });
   server.auth.default("session");
 
-  db.init("mem");
+  db.init(process.env.dbType);
 
   server.route(webRoutes);
   server.route(apiRoutes);

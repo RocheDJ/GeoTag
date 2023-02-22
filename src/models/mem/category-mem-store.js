@@ -21,7 +21,7 @@ export const categoryMemStore = {
     }
     return null;
   },
-
+ 
   async getCategoryPOIById(id) {
     const list = aCategories.find((category) => category._id === id);
     if (list) {
@@ -31,11 +31,12 @@ export const categoryMemStore = {
     return null;
   },
 
-  async getCategories(userid) {
+  async getUserCategories(userid) {
     return aCategories.filter((category) => category.userid === userid);
   },
 
   async deleteCategoryById(id) {
+    
     const index = aCategories.findIndex((category) => category._id === id);
     if (index !== -1) aCategories.splice(index, 1);
   },

@@ -43,9 +43,10 @@ export const poiMemStore = {
     aPoi = [];
   },
 
-  async updateTrack(track, updatedTrack) {
-    track.title = updatedTrack.title;
-    track.artist = updatedTrack.artist;
-    track.duration = updatedTrack.duration;
+  async updatePOI(poi, updatedPOI) {
+    poi.name = updatedPOI.name;
+    poi.description = updatedPOI.description;
+    poi.latitude = updatedPOI.latitude;
+    poi.longitude = updatedPOI.longitude;
   },
 };

@@ -1,5 +1,7 @@
 export const serviceUrl = "http://localhost:3000";
 
+export const testDBType = "mongo"
+
 export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",
@@ -60,13 +62,13 @@ export const testPOI = [
     "longitude" : -90,
   },
   {
-    "title": "POI 2",
+    "name": "POI 2",
     "description": "--",
     "latitude" : -90,
     "longitude" : -90,
   },
   {
-    "title": "POI 3",
+    "name": "POI 3",
     "description":"--",
     "latitude" : -90,
     "longitude" : -90,

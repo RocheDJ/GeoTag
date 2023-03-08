@@ -7,7 +7,7 @@ const poiSchema = new Schema({
   description : String,
   latitude    : Number,
   longitude   : Number,
-  categoryid: {
+  categoryID: {
     type: Schema.Types.ObjectId,
     ref: "Category",
   },

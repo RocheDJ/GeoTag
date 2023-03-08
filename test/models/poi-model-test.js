@@ -27,11 +27,7 @@ suite("POI Model tests", () => {
     assertSubset(testKiln, poi);
   });
 
-  test("Read multiple POIs", async () => {
-    assert.equal(1, 6);
-  });
-
-  test("delete all POIs", async () => {
+  test("Delete all POIs", async () => {
     const aPOIs = await db.poiStore.getAllPOI();
     assert.equal(testPOI.length, aPOIs.length);
     await db.poiStore.deleteAllPOI();
@@ -39,14 +35,14 @@ suite("POI Model tests", () => {
     assert.equal(0, newPOI.length);
   });
 
-  test("get a POI - success", async () => {
+  test("Get a POI - success", async () => {
     const testCategory = await db.categoryStore.addCategory(Kiln);
     const poi = await db.poiStore.addPOI(testCategory._id, testKiln);
     const newPOI = await db.poiStore.getPOIById(poi._id);
     assertSubset(testKiln, newPOI);
   });
 
-  test("delete One POI - success", async () => {
+  test("Delete One POI - success", async () => {
     await db.poiStore.deletePOIById(testPOI[0]._id);
     const aPOIs = await db.poiStore.getAllPOI();
     assert.equal(aPOIs.length, testPOI.length - 1);
@@ -54,7 +50,7 @@ suite("POI Model tests", () => {
     assert.isNull(deletedPOI);
   });
 
-  test("get a poi - bad params", async () => {
+  test("Get a poi - bad params  gives Null", async () => {
     assert.isNull(await db.poiStore.getPOIById(""));
     assert.isNull(await db.poiStore.getPOIById());
   });

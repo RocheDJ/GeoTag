@@ -16,6 +16,12 @@
 
 ---
 
+## Project Information
+
+- [Project ReadMe](/readme.md)
+
+---
+
 ## BaseLine Version 0.0.23043
 
 - Accounts :Sign-up / Login on.
@@ -33,3 +39,15 @@
 - JSON model and tests added
 
 - Mongo Model Added
+
+## Version 0.1.23054
+
+- Images changed to local hosting using inert
+
+- API documentation using Hapi Swagger [API Info](http://localhost:3000/documentation)
+
+## Version 0.1.23068
+
+- Updated the POI API and added JOI schemas and Swagger Documentation.
+
+- 

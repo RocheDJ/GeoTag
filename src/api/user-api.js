@@ -1,6 +1,8 @@
 /* eslint-disable func-names */
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import {IdSpec, UserArray, UserSpec} from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const userApi = {
   find: {
@@ -13,6 +15,10 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all userApi",
+    notes: "Returns details of all userApi",
+    response: { schema: UserArray, failAction: validationError },
   },
 
   findOne: {
@@ -28,6 +34,11 @@ export const userApi = {
         return Boom.serverUnavailable("No User with this id");
       }
     },
+    tags: ["api"],
+    description: "Get details of individual user",
+    notes: "Returns details of all the user based on the given user ID",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: UserSpec, failAction: validationError },
   },
 
   create: {
@@ -43,6 +54,9 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Create a new user",
+    notes: "Add a new user to the DB based on th input parameters",
   },
 
   deleteAll: {
@@ -55,5 +69,9 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Delete all Users",
+    notes: "Deletes all users from the DB",
   },
+
 };

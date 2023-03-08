@@ -3,6 +3,7 @@ import { Category } from "./category.js";
 import { poiMongoStore } from "./poi-mongo-store.js";
 
 export const categoryMongoStore = {
+  
   async getAllCategories() {
     const categories = await Category.find().lean();
     return categories;
@@ -19,16 +20,15 @@ export const categoryMongoStore = {
     return null;
   },
 
-  async getCategoryPOIById(id) {
+  async getPOIByCategoryId(id)
+   {
     if (Mongoose.Types.ObjectId.isValid(id)){  
-      const list = await Category.find({ _id: id }).lean;
-      if (list) {
-        list.poi = await poiMongoStore.getPOIByCategoryId(list._id);
-        return list;
+        poi = await poiMongoStore.getPOIByCategoryId(id);
+        return poi;
       }
-    }
     return null;
   },
+
   async addCategory(category) {
     const newCategory = new Category(category);
     const categoryObj = await newCategory.save();

@@ -21,4 +21,7 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}", config: categoryController.index },
   { method: "POST", path: "/category/{id}/addpoi", config: categoryController.addPoi },
   { method: "GET", path: "/category/{id}/deletepoi/{poiid}", config: categoryController.deletePoi },
+
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+
 ];

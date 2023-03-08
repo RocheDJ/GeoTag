@@ -55,8 +55,13 @@ export const geoTagService = {
     return res.data;
   },
 
-  async createPOI(id, track) {
-    const res = await axios.post(`${this.geoTagUrl}/api/playlists/${id}/poi`, track);
+  async getCategoryPOI(id) {
+    const res = await axios.get(`${this.geoTagUrl}/api/category/${id}/poi`);
+    return res.data;
+  },
+
+  async createPOI(id, poi) {
+    const res = await axios.post(`${this.geoTagUrl}/api/category/${id}/poi`, poi);
     return res.data;
   },
 
@@ -74,4 +79,5 @@ export const geoTagService = {
     const res = await axios.delete(`${this.geoTagUrl}/api/poi/${id}`);
     return res.data;
   },
+
 };

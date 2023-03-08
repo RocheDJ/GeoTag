@@ -1,6 +1,6 @@
 {
   "name": "Geo Tag",
-  "version": "0.1.23051",
+  "version": "0.1.23068",
   "description": "Assignment 1 full Stack Development HDip in Computing, WIT",
   "main": "src/server.js",
   "type": "module",
@@ -8,17 +8,20 @@
     "start": "node src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
     "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**/*.js -exit",
-    "dev" : "npx nodemon src/server.js"
+    "dev": "npx nodemon src/server.js"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",
     "@hapi/cookie": "^12.0.0",
     "@hapi/hapi": "^21.2.0",
-    "@hapi/inert": "^7.0.0",
+    "@hapi/inert": "^7.0.1",
     "@hapi/vision": "^7.0.0",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
+    "hapi-auth-jwt2": "^10.4.0",
+    "hapi-swagger": "^16.0.1",
     "joi": "^17.7.0",
+    "jsonwebtoken": "^9.0.0",
     "lowdb": "^5.0.5",
     "mongoose": "^6.9.1",
     "uuid": "^9.0.0"

@@ -8,14 +8,14 @@ export const poiMongoStore = {
   },
 
   async addPOI(categoryId, poi) {
-    poi.categoryid = categoryId;
+    poi.categoryID = categoryId;
     const newPoi = new POI(poi);
     const PoiObj = await newPoi.save();
     return this.getPOIById(PoiObj._id);
   },
 
   async getPOIByCategoryId(id) {
-    const poi = await POI.find({ categoryid: id }).lean();
+    const poi = await POI.find({ categoryID: id }).lean();
     return poi;
   },
 
@@ -31,7 +31,7 @@ export const poiMongoStore = {
     try {
       await POI.deleteOne({ _id: id });
     } catch (error) {
-      console.log(`Delete Poi Error = ${  error.description}` );
+      console.log(`Delete Poi By ID Error = ${  error.description}` );
     }
   },
 
@@ -44,6 +44,7 @@ export const poiMongoStore = {
     poi.description = updatedPOI.description;
     poi.latitude = updatedPOI.latitude;
     poi.longitude = updatedPOI.longitude;
+    poi.categoryID = updatedPOI.categoryID;
     await poi.save();
   },
 };

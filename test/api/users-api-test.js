@@ -3,13 +3,21 @@ import { assertSubset } from "../test-utils.js";
 import { geoTagService } from "./geotag-service.js";
 import { maggie, testUsers } from "../fixtures.js";
 
+const users = new Array(testUsers.length);
+
 suite("User API tests", () => {
   setup(async () => {
+    await geoTagService.clearAuth();
+    await geoTagService.createUser(maggie);
+    await geoTagService.authenticate(maggie); // create a jwt for test user
     await geoTagService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testUsers[i] = await geoTagService.createUser(testUsers[i]);
+      users[i] = await geoTagService.createUser(testUsers[i]);
     }
+
+    await geoTagService.createUser(maggie);
+    await geoTagService.authenticate(maggie); // create a jwt for test user
   });
   teardown(async () => {});
 
@@ -21,15 +29,17 @@ suite("User API tests", () => {
 
   test("delete all user Api", async () => {
     let returnedUsers = await geoTagService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
-    await geoTagService.deleteAllUsers();
+    assert.equal(returnedUsers.length, 4);
+    await geoTagService.deleteAllUsers(); // delete them all
+    await geoTagService.createUser(maggie); // create and authenticate the test user so we call the get users command
+    await geoTagService.authenticate(maggie);
     returnedUsers = await geoTagService.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
+    assert.equal(returnedUsers.length, 1);
   });
 
   test("get a user", async () => {
-    const returnedUser = await geoTagService.getUser(testUsers[0]._id);
-    assert.deepEqual(testUsers[0], returnedUser);
+    const returnedUser = await geoTagService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser);
   });
 
   test("get a user - bad id", async () => {
@@ -45,7 +55,9 @@ suite("User API tests", () => {
   test("get a user - deleted user", async () => {
     await geoTagService.deleteAllUsers();
     try {
-      const returnedUser = await geoTagService.getUser(testUsers[0]._id);
+      await geoTagService.createUser(maggie); // create and authenticate the test user so we call the get users command
+      await geoTagService.authenticate(maggie);
+      const returnedUser = await geoTagService.getUser(users[0]._id);
       assert.fail("Should not return a response");
     } catch (error) {
       assert(error.response.data.message === "No User with this id");

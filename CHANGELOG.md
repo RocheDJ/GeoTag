@@ -50,4 +50,8 @@
 
 - Updated the POI API and added JOI schemas and Swagger Documentation.
 
-- 
+## Version 0.2.23069
+
+- Introduce Java Web Tokens for API interaction.
+- Bug fixes and enhancements.
+- Swagger documentation for authentication appi

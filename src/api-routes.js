@@ -22,6 +22,7 @@ export const apiRoutes = [
   { method: "POST", path: "/api/category/{id}/poi",config: poiApi.create},
   { method: "GET", path: "/api/poi/{id}", config: poiApi.findOne },
 
-
+// Authenticate route
+  { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
 ];

@@ -23,7 +23,7 @@ export const categoryMongoStore = {
   async getPOIByCategoryId(id)
    {
     if (Mongoose.Types.ObjectId.isValid(id)){  
-        poi = await poiMongoStore.getPOIByCategoryId(id);
+        const poi = await poiMongoStore.getPOIByCategoryId(id);
         return poi;
       }
     return null;

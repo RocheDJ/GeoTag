@@ -3,10 +3,10 @@ export const serviceUrl = "http://localhost:3000";
 export const testDBType = "mongo"
 
 export const maggie = {
+  email: "maggie@simpson.com",
+  password: "secret",
   firstName: "Maggie",
   lastName: "Simpson",
-  email: "maggie@simpson.com",
-  password: "secret"
 };
 
 export const testUsers = [

@@ -24,8 +24,16 @@ const result = dotenv.config();
 const swaggerOptions = {
   info: {
     title: "GeoTag API",
-    version: "0.1.23054",
+    version: "0.1.23070",
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 if (result.error) {

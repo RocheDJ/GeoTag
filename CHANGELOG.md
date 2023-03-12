@@ -54,4 +54,11 @@
 
 - Introduce Java Web Tokens for API interaction.
 - Bug fixes and enhancements.
-- Swagger documentation for authentication appi
+- Swagger documentation for authentication API.
+
+## Version 0.2.23070
+
+- Bug fix Authenticate Swagger Response.
+
+- Add user type for administrator access.
+

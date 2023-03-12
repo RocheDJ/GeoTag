@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { geoTagService } from "./geotag-service.js";
-import { maggie, testUsers } from "../fixtures.js";
+import { maggie,maggieCredentials, testUsers } from "../fixtures.js";
 
 const users = new Array(testUsers.length);
 
@@ -9,7 +9,7 @@ suite("User API tests", () => {
   setup(async () => {
     await geoTagService.clearAuth();
     await geoTagService.createUser(maggie);
-    await geoTagService.authenticate(maggie); // create a jwt for test user
+    await geoTagService.authenticate(maggieCredentials); // create a jwt for test user
     await geoTagService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -17,7 +17,7 @@ suite("User API tests", () => {
     }
 
     await geoTagService.createUser(maggie);
-    await geoTagService.authenticate(maggie); // create a jwt for test user
+    await geoTagService.authenticate(maggieCredentials); // create a jwt for test user
   });
   teardown(async () => {});
 
@@ -32,7 +32,7 @@ suite("User API tests", () => {
     assert.equal(returnedUsers.length, 4);
     await geoTagService.deleteAllUsers(); // delete them all
     await geoTagService.createUser(maggie); // create and authenticate the test user so we call the get users command
-    await geoTagService.authenticate(maggie);
+    await geoTagService.authenticate(maggieCredentials);
     returnedUsers = await geoTagService.getAllUsers();
     assert.equal(returnedUsers.length, 1);
   });
@@ -56,7 +56,7 @@ suite("User API tests", () => {
     await geoTagService.deleteAllUsers();
     try {
       await geoTagService.createUser(maggie); // create and authenticate the test user so we call the get users command
-      await geoTagService.authenticate(maggie);
+      await geoTagService.authenticate(maggieCredentials);
       const returnedUser = await geoTagService.getUser(users[0]._id);
       assert.fail("Should not return a response");
     } catch (error) {

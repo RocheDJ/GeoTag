@@ -104,9 +104,11 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Authenticate a user",
-    notes: "Authenticate a user and generate A token",
-    validate: { payload: UserSpec, failAction: validationError },
+    notes: "Authenticate a user with email and password and generate a Java Web Token token",
+    validate: { payload: UserCredentialsSpec, failAction: validationError },
     response: { schema: JwtAuth, failAction: validationError },
+
+
   },
 
 };

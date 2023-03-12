@@ -7,26 +7,34 @@ export const maggie = {
   password: "secret",
   firstName: "Maggie",
   lastName: "Simpson",
+  userType: "admin",
 };
 
+export const maggieCredentials = {
+  email: "maggie@simpson.com",
+  password: "secret"
+};
 export const testUsers = [
   {
     firstName: "Homer",
     lastName: "Simpson",
     email: "homer@simpson.com",
-    password: "secret"
+    password: "secret",
+    userType: "normal"
   },
   {
     firstName: "Marge",
     lastName: "Simpson",
     email: "marge@simpson.com",
-    password: "secret"
+    password: "secret",
+    userType: "normal"
   },
   {
     firstName: "Bart",
     lastName: "Simpson",
     email: "bart@simpson.com",
-    password: "secret"
+    password: "secret",
+    userType: "normal"
   }
 ];
 

@@ -1,6 +1,11 @@
 import Joi from "joi";
 
+const schUserType = Joi.object().keys({
+    type: Joi.string().valid("normal", "admin","group"),
+});
+
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
+export const UserTypeSpec = Joi.alternatives().try(Joi.string(),schUserType).description("a valid User Group"); // can be a string or a user type object
 // ################ User Spec #############################
 export const UserCredentialsSpec = Joi.object()
     .keys({
@@ -12,6 +17,7 @@ export const UserCredentialsSpec = Joi.object()
 export const UserSpec = UserCredentialsSpec.keys({
     firstName: Joi.string().example("Homer").required(),
     lastName: Joi.string().example("Simpson").required(),
+    userType: UserTypeSpec,
 }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({

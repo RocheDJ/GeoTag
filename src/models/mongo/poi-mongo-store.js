@@ -45,6 +45,7 @@ export const poiMongoStore = {
     poi.latitude = updatedPOI.latitude;
     poi.longitude = updatedPOI.longitude;
     poi.categoryID = updatedPOI.categoryID;
+    poi.imageFileName = updatedPOI.imageFileName;
     await poi.save();
   },
 };

@@ -2,6 +2,7 @@ import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { categoryController } from "./controllers/category-controller.js";
+import { adminController } from "./controllers/admin-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -21,6 +22,14 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}", config: categoryController.index },
   { method: "POST", path: "/category/{id}/addpoi", config: categoryController.addPoi },
   { method: "GET", path: "/category/{id}/deletepoi/{poiid}", config: categoryController.deletePoi },
+  { method: "POST", path: "/category/{id}/uploadimage", config: categoryController.uploadImage },
+
+
+  { method: "GET", path: "/admin", config: adminController.index },
+  { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },
+  { method: "GET", path: "/admin/promoteuser/{id}", config: adminController.makeUserAdmin },
+  { method: "GET", path: "/admin/demoteuser/{id}", config: adminController.makeUserNonAdmin },
+
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 

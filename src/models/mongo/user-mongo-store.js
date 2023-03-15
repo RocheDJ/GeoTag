@@ -30,7 +30,54 @@ export const userMongoStore = {
     const user = await User.findOne({ email: email }).lean();
     return user;
   },
+  async suspendUserById(id) {
+    try {
+      if (Mongoose.Types.ObjectId.isValid(id)){
+        const user = await User.findOne({ _id: id }).lean();
+        if (user){
+          user.userType="suspended";
+          user.save();
+        }else{
+          console.log("suspendUserById Error : user not found");
+        }
 
+      }
+    } catch (error) {
+      console.log(`suspendUserById Error :${  error.message}`);
+    }
+  },
+
+  async userIsAdminById(id) {
+    try {
+      if (Mongoose.Types.ObjectId.isValid(id)){
+        const user = await User.findOne({ _id: id }).lean();
+        if (user){
+          await User.updateOne({ _id: id },{$set:{userType:"admin"}});
+        }else{
+          console.log("userIsAdminById Error : user not found");
+        }
+
+      }
+    } catch (error) {
+      console.log(`userIsAdminById Error :${  error.message}`);
+    }
+  },
+
+  async userIsNormalById(id) {
+    try {
+      if (Mongoose.Types.ObjectId.isValid(id)){
+        const user = await User.findOne({ _id: id }).lean();
+        if (user){
+         await User.updateOne({ _id: id },{$set:{userType:"normal"}});
+        }else{
+          console.log("userIsNormalById Error : user not found");
+        }
+
+      }
+    } catch (error) {
+      console.log(`userIsNormalById Error :${  error.message}`);
+    }
+  },
   async deleteUserById(id) {
     try {
       await User.deleteOne({ _id: id });

@@ -46,6 +46,14 @@ export const categoryMongoStore = {
     } return null;
   },
 
+  async updateCategory(updatedCategory) {
+    const category = await Category.findOne({ _id: updatedCategory._id });
+    category.title = updatedCategory.title;
+    category.img = updatedCategory.img;
+    await category.save();
+  },
+
+
   async deleteCategoryById(id) {
     try {
       await Category.deleteOne({ _id: id });
@@ -53,6 +61,7 @@ export const categoryMongoStore = {
       console.log("bad id");
     }
   },
+
 
   async deleteAllCategories() {
     await Category.deleteMany({});

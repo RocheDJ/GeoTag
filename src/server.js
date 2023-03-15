@@ -16,6 +16,8 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { apiRoutes } from "./api-routes.js";
 import { validate } from "./api/jwt-utils.js";
 
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -40,6 +42,12 @@ if (result.error) {
   console.log(result.error.message);
   process.exit(1);
 }
+// register handle bar helpers to allow more complex function in handlebars
+// help ref https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value
+Handlebars.registerHelper("ifeq", function (a, b, options) {
+  if (a === b) { return options.fn(this); }
+  return options.inverse(this);
+});
 
 async function init() {
   const server = Hapi.server({
@@ -51,6 +59,8 @@ async function init() {
   await server.register(Cookie);
   await server.register(Inert); // to serve local image files
   await server.register(jwt); // to serve java web tokens
+
+
   await server.register([
     Inert,
     Vision,

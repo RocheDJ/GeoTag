@@ -40,7 +40,8 @@ export const testUsers = [
 
 
 export const Kiln = {
-  title: "Kiln Locations"
+  title: "Kiln Locations",
+  img:"location.png"
 };
 
 export const testKiln = {
@@ -48,17 +49,21 @@ export const testKiln = {
     "description": "A location for the burning of lime stone prior to spreading on farmland",
     "latitude" : -90,
     "longitude" : -90,
+    "img":"location.png"
 };
 
 export const testCategories = [
   {
-    title: "Kiln Locations"
+    title: "Kiln Locations",
+    img:"location.png"
   },
   {
-    title: "Local Field Names"
+    title: "Local Field Names",
+    img:"location.png"
   },
   {
-    title: "Bridge"
+    title: "Bridge",
+    img:"location.png"
   }
 ];
 

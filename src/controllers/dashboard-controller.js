@@ -1,4 +1,4 @@
-import {CategorySpec} from "../models/joi-schemas.js";
+import {CategorySpec,schUserType} from "../models/joi-schemas.js";
 import {db} from "../models/db.js";
 
 export const dashboardController = {
@@ -11,7 +11,11 @@ export const dashboardController = {
                 user: loggedInUser,
                 categories: categories,
             };
-            return h.view("dashboard-view", viewData);
+            if (loggedInUser.userType === "admin"){
+                return h.view("dashboard-view-admin", viewData);
+            }else{
+                return h.view("dashboard-view", viewData);
+            }
         },
     },
 

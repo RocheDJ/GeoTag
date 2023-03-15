@@ -1,11 +1,12 @@
 import Joi from "joi";
 
-const schUserType = Joi.object().keys({
-    type: Joi.string().valid("normal", "admin","group"),
+export const schUserType = Joi.object().keys({
+    type: Joi.string().valid("normal", "admin", "group", "suspended"),
 });
 
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
-export const UserTypeSpec = Joi.alternatives().try(Joi.string(),schUserType).description("a valid User Group"); // can be a string or a user type object
+
+export const UserTypeSpec = Joi.alternatives().try(Joi.string(), schUserType).description("a valid User Group"); // can be a string or a user type object
 // ################ User Spec #############################
 export const UserCredentialsSpec = Joi.object()
     .keys({
@@ -30,36 +31,37 @@ export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
 // ################ Place of interest Spec #############################
 export const PoiSpec = Joi.object()
-.keys({
-  name: Joi.string().example("Somewhere beach").required(),
-  description: Joi.string().example("Description of Somewhere beach").optional(),
-  latitude: Joi.number().required(),
-  longitude : Joi.number().required(),
-  categoryID: IdSpec,
-})
-.label("POI");
+    .keys({
+        name: Joi.string().example("Somewhere beach").required(),
+        description: Joi.string().example("Description of Somewhere beach").optional(),
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required(),
+        imageFileName: Joi.any().optional(),
+        categoryID: IdSpec,
+    })
+    .label("POI");
 
 export const PoiSpecPlus = PoiSpec.keys({
-  _id: IdSpec,
-  __v: Joi.number(),
+    _id: IdSpec,
+    __v: Joi.number(),
 }).label("PoiPlus");
 
 export const PoiArraySpec = Joi.array().items(PoiSpecPlus).label("PoiArray");
 
 // ################ Category Spec         #############################
 export const CategorySpec = Joi.object()
-.keys({
-  title: Joi.string().required().example("Beaches"),
-  poi:PoiArraySpec,
-  userID:IdSpec,
-})
-.label("Category");
+    .keys({
+        title: Joi.string().required().example("Beaches"),
+        poi: PoiArraySpec,
+        userID: IdSpec,
+    })
+    .label("Category");
 
 export const CategorySpecPlus = CategorySpec.keys({
-  _id:IdSpec,
-  __v: Joi.number(),
+    _id: IdSpec,
+    __v: Joi.number(),
 })
-.label("CategoryPlus");
+    .label("CategoryPlus");
 
 export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
 

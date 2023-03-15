@@ -1,6 +1,6 @@
 {
   "name": "Geo Tag",
-  "version": "0.2.23070",
+  "version": "0.2.23071",
   "description": "Assignment 1 full Stack Development HDip in Computing, WIT",
   "main": "src/server.js",
   "type": "module",
@@ -16,7 +16,9 @@
     "@hapi/hapi": "^21.2.0",
     "@hapi/inert": "^7.0.1",
     "@hapi/vision": "^7.0.0",
+    "cloudinary": "^1.35.0",
     "dotenv": "^16.0.3",
+    "formidable": "^2.1.1",
     "handlebars": "^4.7.7",
     "hapi-auth-jwt2": "^10.4.0",
     "hapi-swagger": "^16.0.1",

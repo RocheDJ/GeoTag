@@ -62,3 +62,8 @@
 
 - Add user type for administrator access.
 
+## Version 0.2.23071
+
+- Add admin page to list and delete users
+
+- Add image upload for Places of Interest

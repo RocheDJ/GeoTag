@@ -1,6 +1,6 @@
 {
-  "name": "Geo Tag",
-  "version": "0.2.23071",
+  "name": "Geo-Tag",
+  "version": "0.2.23074",
   "description": "Assignment 1 full Stack Development HDip in Computing, WIT",
   "main": "src/server.js",
   "type": "module",
@@ -37,5 +37,8 @@
     "eslint-plugin-import": "^2.27.5",
     "mocha": "^10.2.0",
     "prettier": "^2.8.3"
-  }
+  },
+  "engines": {
+  "node": ">=16.0.0"
+}
 }

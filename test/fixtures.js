@@ -59,11 +59,11 @@ export const testCategories = [
   },
   {
     title: "Local Field Names",
-    img:"location.png"
+    img:"http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png"
   },
   {
     title: "Bridge",
-    img:"location.png"
+    img:"http://res.cloudinary.com/dwv4wuj9l/image/upload/v1678877496/j8fuirekhojwosgmpjr0.png"
   }
 ];
 

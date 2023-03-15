@@ -67,3 +67,11 @@
 - Add admin page to list and delete users
 
 - Add image upload for Places of Interest
+
+## Version 0.2.23074
+
+- Update for Deployment on Render
+
+- Note node version fixed >16.0.0 for Glitch
+
+- Change app name in package to remove spaces

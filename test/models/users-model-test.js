@@ -19,7 +19,8 @@ suite("User Model tests", () => {
     assertSubset(maggie, newUser);
   });
 
-  test("delete all userApi", async () => {
+
+  test("delete all users", async () => {
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
     await db.userStore.deleteAll();

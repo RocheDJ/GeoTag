@@ -38,6 +38,8 @@ const swaggerOptions = {
   security: [{ jwt: [] }]
 };
 
+
+
 if (result.error) {
   console.log(result.error.message);
   process.exit(1);

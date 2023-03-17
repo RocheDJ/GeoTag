@@ -1,6 +1,9 @@
+
+import { mongo } from "mongoose";
+
 export const serviceUrl = "http://localhost:3000";
 
-export const testDBType = "mongo"
+export const testDBType =  "firebase";    // "mongo"
 
 export const maggie = {
   email: "maggie@simpson.com",

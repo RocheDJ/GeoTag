@@ -18,6 +18,8 @@
     "@hapi/vision": "^7.0.0",
     "cloudinary": "^1.35.0",
     "dotenv": "^16.0.3",
+    "firebase": "^9.17.2",
+    "firefose": "^1.1.5",
     "formidable": "^2.1.1",
     "handlebars": "^4.7.7",
     "hapi-auth-jwt2": "^10.4.0",
@@ -39,6 +41,6 @@
     "prettier": "^2.8.3"
   },
   "engines": {
-  "node": ">=16.0.0"
-}
+    "node": ">=16.0.0"
+  }
 }

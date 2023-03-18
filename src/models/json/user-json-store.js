@@ -11,6 +11,7 @@ export const userJsonStore = {
     return db.data.users;
   },
 
+
   async addUser(user) {
     await db.read();
     user._id = v4();

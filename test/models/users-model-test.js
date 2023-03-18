@@ -19,7 +19,6 @@ suite("User Model tests", () => {
     assertSubset(maggie, newUser);
   });
 
-
   test("delete all users", async () => {
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
@@ -55,4 +54,29 @@ suite("User Model tests", () => {
     const allUsers = await db.userStore.getAllUsers();
     assert.equal(testUsers.length, allUsers.length);
   });
+
+  test("Demote User", async () => {
+    // add user
+    let userData = await db.userStore.addUser(maggie);
+    // demote user
+    await db.userStore.userIsNormalById(userData._id);
+    // read back from DB user value
+    userData = await db.userStore.getUserById(userData._id);
+    // check maggie is now normal
+    assert.equal(userData.userType, "normal");
+  });
+
+  test("Promote User", async () => {
+    await db.userStore.deleteUserById(testUsers[0]._id);
+    let userData = await db.userStore.getUserById(testUsers[1]._id);
+    userData.userType = "admin";
+    await db.userStore.userIsAdminById(userData._id);
+    // read back user data
+    userData = await db.userStore.getUserById(userData._id);
+    // check maggie is now normal
+    assert.equal(userData.userType, "admin");
+  });
+
+
+
 });

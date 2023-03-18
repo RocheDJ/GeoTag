@@ -19,7 +19,7 @@ export const db = {
     categoryStore: null,
     poiStore: null,
 
-    init(storeType) {
+    async init(storeType) {
         switch (storeType) {
             case "json" :
                 this.userStore = userJsonStore;
@@ -32,8 +32,12 @@ export const db = {
                 this.poiStore = poiMongoStore;
                 connectMongo();
                 break;
+
             case "firebase":
-                this.userStore = userFirebaseStore;
+                await userFirebaseStore.config().then(r => {
+                    this.userStore = userFirebaseStore;
+                });
+
                 break;
             default :
                 this.userStore = userMemStore;

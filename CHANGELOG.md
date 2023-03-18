@@ -75,3 +75,10 @@
 - Note node version fixed >16.0.0 for Glitch
 
 - Change app name in package to remove spaces
+
+## Version 0.3.23077
+
+- Update to include firebase realtime database user model and tests.
+
+
+

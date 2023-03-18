@@ -17,52 +17,56 @@ const firebaseConfig = {
   measurementId: process.env.firebase_measurementId
 };
 
-// Initialize Firebase
+// Initialize Firebase now called on init if requires so as not to cause errors when loading with test .env
+let app = null; // initializeApp(firebaseConfig);
+let db = null ; // getDatabase(app);
+let UsersRef = null // ref(db, "users");
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const UsersRef = ref(db, "users");
-
-const aUsers = [];
 export const userFirebaseStore = {
-
+ async config(){
+    app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    UsersRef = ref(db, "users");
+  },
   async getAllUsers() {
+    const aUsers = [];
     await get(child(UsersRef, "/")).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log("get all = ", snapshot.val());
+        //  console.log("get all = ", snapshot.val());
         aUsers.length = 0;
         snapshot.forEach((childSnapshot) => {
           aUsers.push(childSnapshot.val());
         });
       }
-      return aUsers;
     }).catch((error) => {
       console.error(error);
       return null;
     });
+    return aUsers;
   },
 
   async getUserById(id) {
+    let retVal = null;
     if (id) {
-      let retVal = null;
-      await get(child(UsersRef, `/${id}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-          retVal = snapshot.val();
-          return retVal;
-        }
-        console.log("No data available");
-        return null;
-
-      }).catch((error) => {
-        console.error(error);
-        return null;
-      });
+      try {
+        await get(child(UsersRef, `${id}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            // console.log(snapshot.val());
+            retVal = snapshot.val();
+          }
+        }).catch((error) => {
+          console.error(error);
+          retVal = null;
+        });
+      } catch (ex) {
+        console.log(`getUserById error ${ex.message}`);
+      }
     }
+    return retVal;
   },
 
   async addUser(user) {
-    let userData = {
+    const userData = {
       _id: v4(),
       firstName: user.firstName,
       lastName: user.lastName,
@@ -70,14 +74,14 @@ export const userFirebaseStore = {
       password: user.password,
       userType: user.userType
     };
+    let addedUser = null;
     // Get a key for a new Post.
     await set(ref(db, `users/${userData._id}`), userData).then(async () => {
-      console.log("user added");
+      // console.log("user added");
       await get(ref(db, `users/${userData._id}`)).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
-          const retVal = snapshot.val();
-          userData = {
+          // console.log(snapshot.val());
+          addedUser = {
             _id: userData._id,
             firstName: snapshot.val().firstName,
             lastName: snapshot.val().lastName,
@@ -85,41 +89,121 @@ export const userFirebaseStore = {
             password: snapshot.val().password,
             userType: snapshot.val().userType
           };
-          return userData;
         }
-        console.log("No data available");
-        return null;
-
       }).catch((error) => {
         console.error(error);
-        return null;
       });
     });
+    return addedUser;
   },
 
   async getUserByEmail(email) {
-    return null;
+    let retVal = null;
+    if (email) {
+      try {
+        const aUsers1 = await this.getAllUsers();
+        const iLength = aUsers1.length;
+        let i = 0;
+        while (i < iLength) {
+          if (aUsers1[i].email === email) {
+            retVal = aUsers1[i];
+            break;
+          }
+          i += 1;
+        }
+      } catch (ex) {
+        console.log(`getUserByEmail error ${ex.message}`);
+      }
+    }
+    return retVal;
   },
 
   async suspendUserById(id) {
-  ;
+    let retVal = null;
+    if (id) {
+      const myUser = await this.getUserById(id);
+      if (myUser) {
+        myUser.userType = "suspended";
+        await update(ref(db, `users/${myUser._id}`), {
+          userType: "suspended"
+        })
+          .then(() => {
+            // Data updated successfully!
+            retVal = myUser;
+          })
+          .catch((ex) => {
+            // The write failed...
+            console.log(`suspendUserById error ${ex.message}`);
+          });
+      }
+    }
+    return retVal;
   },
 
   async userIsAdminById(id) {
-   ;
+    let retVal = null;
+    if (id) {
+      const myUser = await this.getUserById(id);
+      if (myUser) {
+        myUser.userType = "admin";
+        await update(ref(db, `users/${myUser._id}`), {
+          userType: "admin"
+        })
+          .then(() => {
+            // Data updated successfully!
+            retVal = myUser;
+          })
+          .catch((ex) => {
+            // The write failed...
+            console.log(`userIsAdminById error ${ex.message}`);
+          });
+      }
+    }
+    return retVal;
   },
 
   async userIsNormalById(id) {
-    ;
+    let retVal = null;
+    if (id) {
+      const myUser = await this.getUserById(id);
+      if (myUser) {
+        myUser.userType = "normal";
+        await update(ref(db, `users/${myUser._id}`), {
+          userType: "normal"
+        })
+          .then(() => {
+            // Data updated successfully!
+            retVal = myUser;
+          })
+          .catch((ex) => {
+            // The write failed...
+            console.log(`userIsNormalById error ${ex.message}`);
+          });
+      }
+    }
+    return retVal;
   },
+
   async deleteUserById(id) {
-    ;
+    let retVal = null;
+    if (id) {
+      await remove(ref(db, `users/${id}`))
+        .then(() => {
+          // Data updated successfully!
+          retVal = 1;
+        })
+        .catch((ex) => {
+          // The write failed...
+          console.log(`deleteUserById error ${ex.message}`);
+        });
+    }
+    return retVal;
   },
 
   async deleteAll() {
     const dbRef = ref(db, "users");
     await remove(dbRef).then(() => {
-      console.log("All users removed");
+      ;// console.log("All users removed");
     });
   }
 };
